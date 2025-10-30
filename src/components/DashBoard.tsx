@@ -51,11 +51,10 @@ const DashBoard = () => {
   const db = getFirestore(firebaseConfig);
   const auth = getAuth(firebaseConfig);
 
-  // Apply filters and sorting
+  // Apply filters
   useEffect(() => {
     let result = [...tasks];
-
-    // Apply search
+    // Filter by search
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
       result = result.filter(
@@ -66,12 +65,12 @@ const DashBoard = () => {
       );
     }
 
-    // Apply category filter
+    // category filter
     if (filterCategory !== "all") {
       result = result.filter((task) => task.category === filterCategory);
     }
 
-    // Apply status filter
+    // status filter
     if (filterStatus !== "all") {
       result = result.filter((task) => task.status === filterStatus);
     }
@@ -88,8 +87,6 @@ const DashBoard = () => {
       await updateDoc(taskRef, {
         status: newStatus,
       });
-
-      // Update local state
       setTasks((currentTasks) =>
         currentTasks.map((task) =>
           task.id === taskId
@@ -106,6 +103,7 @@ const DashBoard = () => {
     }
   };
 
+  // Fetch tasks on mount
   useEffect(() => {
     const fetchTasks = async (userId: string) => {
       setIsLoading(true);
@@ -135,7 +133,7 @@ const DashBoard = () => {
       }
     };
 
-    // Set up auth state listener
+    // Set up listener
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         fetchTasks(user.uid);

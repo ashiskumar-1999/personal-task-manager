@@ -1,10 +1,6 @@
 import React from "react";
 import { Button } from "./ui/button";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  GoogleAuthProvider,
-} from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { firebaseConfig } from "../config/firebase";
 import { useNavigate } from "react-router";
 
