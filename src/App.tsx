@@ -23,7 +23,14 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/add-task" element={<AddTask />} />
+          <Route
+            path="/add-task"
+            element={
+              <ProtectedRoute>
+                <AddTask />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/" element={<LogIn />} />
         </Routes>
       </Router>
